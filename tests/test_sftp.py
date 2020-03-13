@@ -169,6 +169,10 @@ class MockConnection():
         """ chdir method """
         return None
 
+    def close(self):
+        """ close method """
+        return None
+
     # pylint: disable=too-many-arguments
     def put(self, localpath, remotepath=None, callback=None, confirm=True, preserve_mtime=False):
         """ put method """

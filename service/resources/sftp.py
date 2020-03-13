@@ -105,6 +105,7 @@ class SFTP():
             sftp.cd()
             sftp.chdir(remotepath)
             sftp_put = sftp.put(localpath, preserve_mtime=True)
+            sftp.close()
 
         return sftp_put
 
