@@ -57,12 +57,11 @@ params = {
 }
 
 r = requests.post(
-    'https://sftp-microservice-py-prod.herokuapp.com/sftp',
+    'http://127.0.0.1:8000/sftp',
     files=files,
     headers=headers,
     params=params)
 ```
-
 
 
 
