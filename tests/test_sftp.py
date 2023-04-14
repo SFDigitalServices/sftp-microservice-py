@@ -1,5 +1,6 @@
 # pylint: disable=redefined-outer-name
 """Tests for microservice"""
+import os
 from unittest.mock import patch
 import pytest
 from falcon import testing
@@ -25,6 +26,8 @@ def client():
 def mock_env_access_key(monkeypatch):
     """ mock environment access key """
     monkeypatch.setenv("ACCESS_KEY", CLIENT_HEADERS["ACCESS_KEY"])
+    monkeypatch.setenv("KNOWN_HOST", "test.com")
+    monkeypatch.setenv("LOCAL_DIR", "tmp")
 
 def test_post_missing_fields(client, mock_env_access_key):
     # pylint: disable=unused-argument
@@ -141,6 +144,11 @@ def test_post(client, mock_env_access_key):
 def test_post_bundle(client, mock_env_access_key):
     # pylint: disable=unused-argument
     """ test post """
+    os.environ["BUNDLE_MOCK_USER"] = "user"
+    os.environ["BUNDLE_MOCK_PASSWORD"] = "password"
+    os.environ["BUNDLE_MOCK_HOST"] = "host"
+    os.environ["BUNDLE_MOCK_HOST_KEY"] = "key"
+
     with patch('service.resources.sftp.pysftp.Connection') as mock_put:
         mock_connection = MockConnection()
         mock_put.return_value = mock_connection
